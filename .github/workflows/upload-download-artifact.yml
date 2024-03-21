@@ -1,0 +1,32 @@
+name: Upload et download les artéfacts de build
+on:
+  push:
+    branches:
+      - main
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Récupérer le code
+      uses: actions/checkout@v4
+    - name: Installe les dépendances
+      run: npm ci
+    - name: Test du projet
+      run: npm run test
+    - name: Build du projet
+      run: npm run build
+    - name: Upload des assets
+      uses: action/upload-artifact@v4
+      with:
+        name: assets
+        path: dist
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer l'artéfact
+        uses: action/download-artifact@v4
+        with:
+          name: assets
+      - name: Lister les fichiers
+        run: ls -R
+    
