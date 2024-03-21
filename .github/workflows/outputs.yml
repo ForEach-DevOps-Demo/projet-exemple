@@ -10,7 +10,7 @@ jobs:
       run: echo "VAR1=Hello" >> $GITHUB_OUTPUT
     - id: etape2
       name: Set VAR2
-      run: echo "VAR2=world!" >> $GITHUB_OUTPUT
+      run: echo "VAR2=world" >> $GITHUB_OUTPUT
     - id: etape3
       name: echo VAR1 VAR2
       run : echo ${{ steps.etape1.outputs.VAR1 }} ${{ steps.etape1.outputs.VAR2 }} 
