@@ -3,7 +3,12 @@ run-name: "Exécution du workflow ${{github.workflow}} pour le commit ${{github.
 on: push
 jobs:
   job1:
+    name: Génère des paramètres de sortie
     runs-on: ubuntu-latest
+    outputs:  # Définit les outputs de job1 sortie1 et sortie2
+              # en les mappant avec mes outputs VAR1 de etape1 et VAR2 de etape2
+      sortie1: ${{ steps.etape1.outputs.VAR1 }}
+      sortie2: ${{ steps.etape2.outputs.VAR2 }}
     steps:
     - id: etape1
       name: Set VAR1
@@ -14,3 +19,10 @@ jobs:
     - id: etape3
       name: echo VAR1 VAR2
       run : echo ${{ steps.etape1.outputs.VAR1 }} ${{ steps.etape2.outputs.VAR2 }} 
+  job2:
+    name: Récupère les paramètres de job1 dans job2
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: echo sortie1 sortie2
+        run: echo ${{needs.job1.outputs.sortie1}} ${{needs.job2.outputs.sortie2}}
