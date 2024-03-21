@@ -16,7 +16,7 @@ jobs:
     - name: Build du projet
       run: npm run build
     - name: Upload des assets
-      uses: action/upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: assets
         path: dist
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer l'artéfact
-        uses: action/download-artifact@v4
+        uses: actions/download-artifact@v4
         with:
           name: assets
       - name: Lister les fichiers
