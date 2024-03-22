@@ -12,5 +12,11 @@ jobs:
     name: Affiche les outputs du 1er workflow
     runs-on: ubuntu-latest
     needs: premier-job
+    # needs: [premier-job, un-autre-job, encore-un]
     steps:
-      - run: echo ${{ needs.premier-job.outputs.variable1 }} ${{ needs.premier-job.outputs.variable2 }}
+      - name: Retourne "Hello world!"
+        run: echo ${{ needs.premier-job.outputs.variable1 }} ${{ needs.premier-job.outputs.variable2 }}
+      - name: Affiche le contenu de needs
+        run: echo "$NEEDS_JSON"
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
