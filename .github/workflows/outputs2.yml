@@ -1,0 +1,16 @@
+name: Appelle le 1er workflow et utilise ses outputs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  premier-job:
+    name: Appelle le 1er workflow
+    uses: ForEach-DevOps-Demo/projet-exemple/.github/workflows/outputs.yml@main
+
+  deuxieme-job:
+    name: Affiche les outputs du 1er workflow
+    runs-on: ubuntu-latest
+    needs: premier-job
+    steps:
+      - run: echo ${{ needs.premier-job.outputs.variable1 }} ${{ needs.premier-job.outputs.variable2 }}
